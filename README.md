@@ -16,6 +16,11 @@ cd contact-label-demo
 pip install -r requirements.txt
 ```
 
+The model file can be downloaded from this link. It should be moved to data/model/iccv_rebase_0.pth
+```
+https://www.dropbox.com/scl/fi/gzqvb0bepx14bc40yy2vh/iccv_rebase_0.pth?rlkey=rjiy9vyp66aiwo8tj45zconha&dl=0
+```
+
 ## Run webcam demo
 ```
 python -m paper.demo_webcam --config iccv_rebase

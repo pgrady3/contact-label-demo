@@ -2,3 +2,7 @@ pyyaml
 opencv-contrib-python==4.5.5.62
 numpy
 tqdm
+six
+tensorboard
+matplotlib
+mediapipe
