@@ -1,0 +1,139 @@
+TRAIN_FILTER:
+  - data/data_sensel_train/*/*
+
+TARGET_DOMAIN_FILTER:
+  - data/data_weak_train/*/*
+  - data/processed_weak_data_iccv/participant_102*/*
+  - data/processed_weak_data_iccv/participant_106*/*
+  - data/processed_weak_data_iccv/participant_107*_no-sensel_*/*
+  - data/processed_weak_data_iccv/participant_111*/*
+  - data/processed_weak_data_iccv/participant_112*/*
+  - data/processed_weak_data_iccv/participant_115*/*
+  - data/processed_weak_data_iccv/participant_116*/*
+  - data/processed_weak_data_iccv/participant_119*/*
+  - data/processed_weak_data_iccv/participant_122*objects*/*
+  - data/processed_weak_data_iccv/participant_123*/*
+  - data/processed_weak_data_iccv/participant_124*/*
+  - data/processed_weak_data_iccv/participant_125*/*
+  - data/processed_weak_data_iccv/participant_129*/*
+
+  - data/processed_weak_data_iccv/participant_30*/*
+  - data/processed_weak_data_iccv/participant_101*/*
+  - data/processed_weak_data_iccv/participant_103*/*
+  - data/processed_weak_data_iccv/participant_104*/*
+  - data/processed_weak_data_iccv/participant_105*/*
+  - data/processed_weak_data_iccv/participant_107*_sensel_*/*
+  - data/processed_weak_data_iccv/participant_108*/*
+  - data/processed_weak_data_iccv/participant_109*/*
+  - data/processed_weak_data_iccv/participant_110*/*
+  - data/processed_weak_data_iccv/participant_113*/*
+  - data/processed_weak_data_iccv/participant_122*sensel*/*
+  - data/processed_weak_data_iccv/participant_127*/*
+
+VAL_FILTER:
+  - data/data_sensel_test/*/*
+  - data/processed_weak_data_iccv/participant_100*/*
+  - data/processed_weak_data_iccv/participant_114*sensel*/*
+  - data/processed_weak_data_iccv/participant_118*sensel*/*
+  - data/processed_weak_data_iccv/participant_120*sensel*/*
+  - data/processed_weak_data_iccv/participant_121*/*
+  - data/processed_weak_data_iccv/participant_128*/*
+VAL_WEAK_FILTER:
+  - data/data_weak_test/*/*
+  - data/processed_weak_data_iccv/participant_114*weak*/*
+  - data/processed_weak_data_iccv/participant_117*/*
+  - data/processed_weak_data_iccv/participant_118*objects*/*
+  - data/processed_weak_data_iccv/participant_120*weak*/*
+  - data/processed_weak_data_iccv/participant_126*/*
+
+TEST_FILTER:
+  - data/data_sensel_test/*/*
+  - data/processed_weak_data_iccv/participant_100*/*
+  - data/processed_weak_data_iccv/participant_114*sensel*/*
+  - data/processed_weak_data_iccv/participant_118*sensel*/*
+  - data/processed_weak_data_iccv/participant_120*sensel*/*
+  - data/processed_weak_data_iccv/participant_121*/*
+  - data/processed_weak_data_iccv/participant_128*/*
+TEST_WEAK_FILTER:
+  - data/data_weak_test/*/*
+  - data/processed_weak_data_iccv/participant_114*weak*/*
+  - data/processed_weak_data_iccv/participant_117*/*
+  - data/processed_weak_data_iccv/participant_118*objects*/*
+  - data/processed_weak_data_iccv/participant_120*weak*/*
+  - data/processed_weak_data_iccv/participant_126*/*
+
+#USE_CHECKPOINT: pv_pretrain_aug
+
+DO_AUG: True
+AUG_METHOD: 1
+WEAK_LABEL_HIGH_LOW: True
+SKIP_FRAMES_WITHOUT_POSE: True
+USE_SOFT_CROSS_ENTROPY: True
+SOFT_CROSS_ENTROPY_OMEGA: 1
+FORCE_CLASSIFICATION_NONZERO_WEIGHT: 1
+
+
+LAMBDA_DOMAIN: 0.001
+LAMBDA_FINGERS_SOURCE: 0.01
+LAMBDA_FINGERS_TARGET: 0.01
+
+NETWORK_TYPE: fpn_dann_logits
+NETWORK_IMAGE_SIZE_X: 448
+NETWORK_IMAGE_SIZE_Y:  448
+
+
+#NORM_FORCE_REGRESS: 20
+
+
+MAX_EPOCHS: 30
+
+LEARNING_RATE_INITIAL: 0.001
+LEARNING_RATE_SCHEDULER_STEP:
+  - 10
+LEARNING_RATE_SCHEDULER_GAMMA: 0.1
+BATCH_SIZE: 14
+
+FORCE_CLASSIFICATION: True
+DATALOADER_FORCE_METHOD: 2
+NUM_FORCE_CLASSES: 9
+FORCE_THRESHOLDS:
+  - 0.0
+  - 0.5
+  - 1.0
+  - 2.0
+  - 4.0
+  - 8.0
+  - 16.0
+  - 32.0
+  - 64.0
+
+
+# Single frame config
+DATALOADER_IMAGE_METHOD: 0   # How the input image will be represented
+NETWORK_INPUT_CHANNELS: 3
+DATALOADER_TRAIN_SKIP_FRAMES: 1   # Set to 1 to train on every frame, set to 5 to take every 5th frame
+DATALOADER_TEST_SKIP_FRAMES: 100
+
+NUM_WORKERS: 16
+
+CROP_IMAGES: False
+CROP_MARGIN: 50
+HAND_CROP: True
+HAND_CROP_SCALE: 1.5
+
+TRAIN_ITERS_PER_EPOCH: 10000
+
+EXCLUDE_ACTIONS:
+  - type_sentence
+  - calibration
+  - type_ipad
+  - draw_word
+
+USE_CAMERAS:
+  - BRIO-1
+  - BRIO-2
+  - BRIO-3
+  - BRIO-4
+  - FCAM-1
+  - DELL-1
+  - LMNA-1
